@@ -1,2 +1,2 @@
-# Data Viz Project
+# data-viz-project
  
