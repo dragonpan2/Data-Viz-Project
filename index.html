@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Project</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div class="tabs">
+    <ul class="header row">
+      <li class="col active">Study Duration</li>
+      <li class="col">Enrollment</li>
+      <li class="col">Graduation</li>
+    </ul>
+    <div class="content">
+      <section class="tab visible">
+        <div class="subtabs">
+          <ul class="header row">
+            <li class="subcol active">Cycle 1</li>
+            <li class="subcol">Cycle 2</li>
+            <li class="subcol">Cycle 3</li>
+          </ul>
+          <div class="content">
+            <section class="subtab visible">
+              <svg id="heatmapC1-svg"></svg>
+            </section>
+            <section class="subtab">
+              <svg id="heatmapC2-svg"></svg>
+            </section>
+            <section class="subtab">
+              <svg id="heatmapC3-svg"></svg>
+            </section>
+          </div>
+        </div>
+      </section>
+      <section class="tab">
+        <label>
+                Decomposed
+        </label>
+        <label class="switch">
+                <input onclick="ToggleDe()" type="checkbox">
+                <span class="slider round"></span>
+              </label>
+        <div class="label">Classified by:</div>
+        <select id="selectButtonBar" style="margin-bottom: 15px"></select>
+        <form>
+          <label><input type="radio" name="mode" value="bycount" checked> Number of Enrollments</label>
+          <label><input type="radio" name="mode" value="bypercent"> Percent</label>
+        </form>
+        <svg id="semester-svg"></svg>
+        <svg id="bar-chart-svg"></svg>
+        <div id="de-div">
+        <svg id="decomposed-svg"></svg>
+        <div id='spacer'></div>
+        <svg id="decomposed-svg2"></svg>
+        <svg id="decomposed-svg3"></svg>
+
+</div>
+      </section>
+
+      <section class="tab">
+        <input type="number" id="startYear" 
+        min="2011" max="2020" value="2011">
+        <input type="number" id="endYear" 
+       min="2011" max="2020" value="2020">
+        <select id="selectButton"></select>
+        <div class="legend"></div>
+        <svg id="line-chart-svg"></svg>
+      </section>
+    </div>
+  </div>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  <script type="text/javascript" src="assets/libs/d3.js"></script>
+  <script type="text/javascript" src="assets/libs/d3-tip.js"></script>
+  <script type="text/javascript" src="assets/libs/localization-fr.js"></script>
+  <script type="text/javascript" src="assets/scripts/1-preproc.js"></script>
+  <script type="text/javascript" src="assets/scripts/2-heatmap.js"></script>
+  <script type="text/javascript" src="assets/scripts/3-linechart.js"></script>
+  <script type="text/javascript" src="assets/scripts/4-barchart.js"></script>
+  <script type="text/javascript" src="assets/scripts/5-decomposed.js"></script>
+  <script type="text/javascript" src="assets/scripts/main.js"></script>
+</body>
+</html>

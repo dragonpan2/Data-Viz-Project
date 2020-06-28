@@ -1,0 +1,373 @@
+/***** General style *****/
+/* Import Google Font */
+/* @import url(https://fonts.googleapis.com/css?family=Nunito+Sans); */
+body {
+  display: table;
+  margin: 20px auto auto;
+  font-family: Arial, sans-serif;
+  /* font-family: "Nunito Sans", Arial, Helvetica, sans-serif; */
+}
+
+h1 {
+  font-size: 1.2em;
+  margin: 15px 0 20px 0;
+}
+
+.row {
+  display: flex;
+}
+
+.row > .col {
+  flex: 1;
+}
+
+.label {
+  text-align: left;
+  line-height: 24px;
+  flex-basis: 150px;
+}
+
+select {
+  width: 100%;
+}
+
+.label,
+select {
+  padding: 5px;
+  font-size: 1.1em;
+}
+
+/***** Tabs *****/
+.tabs {
+  width: 1400px;
+  border: 1px solid #666;
+}
+
+.tabs > .header {
+  height: 30px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-align: center;
+  line-height: 30px;
+  border-bottom: 1px solid #666;
+}
+
+.tabs > .header > li {
+  background-color: #e6e7e8;
+  cursor: pointer;
+  text-align: center;
+}
+
+.tabs > .header > li:not(:last-child) {
+  border-right: 1px solid #666;
+}
+
+.tabs > .header > li.active {
+  color: #fff;
+  background-color: #4c7d95;
+}
+
+.tabs > .content > .tab {
+  display: none;
+  width: 100%;
+  /* padding: 20px 10px 10px 10px; */
+  box-sizing: border-box;
+}
+
+.tabs > .content {
+  float: center;
+  text-align: center;
+}
+
+.tabs > .content > .tab.visible {
+  display: block;
+}
+
+/***** Subtabs *****/
+.subtabs {
+  max-width: 1300px;
+  margin: 30px auto;
+}
+
+.subtabs > .header {
+  height: 40px;
+  width: 400px;
+  padding-inline-start: 450px;
+  list-style: none;
+  float: center;
+  text-align: center;
+}
+
+.subtabs > .header > li {
+  /* background-color: #e6e7e8; */
+  cursor: pointer;
+  padding: 12px 24px;
+  transition: background-color 0.2s;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #484848;
+  border-radius: 10px 10px 10px 10px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.subtabs > .header > li:last-child {
+  border-right: 1px solid #ccc;
+}
+
+.subtabs > .header > li:hover {
+  background-color: #aaa;
+  color: #fff;
+}
+
+.subtabs > .header > li.active {
+  background-color: #666;
+  color: #fff;
+  border: 1px solid #fff;
+  cursor: default;
+}
+
+.subtabs > .content > .subtab {
+  display: none;
+  width: 100%;
+  padding: 10px 10px 10px 10px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.subtabs > .content {
+  text-align: center;
+}
+
+.subtabs > .content > .subtab.visible {
+  display: block;
+}
+
+.row > .subcol {
+  flex: 1;
+}
+
+/***** Undertabs *****/
+.undertabs {
+  max-width: 1300px;
+  margin: 30px auto;
+}
+
+.undertabs > .header {
+  height: 40px;
+  width: 400px;
+  padding-inline-start: 450px;
+  list-style: none;
+  float: center;
+  text-align: center;
+}
+
+.undertabs > .header > li {
+  /* background-color: #e6e7e8; */
+  cursor: pointer;
+  padding: 12px 24px;
+  transition: background-color 0.2s;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color:#484848;
+  border-radius: 10px 10px 10px 10px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.undertabs > .header > li:last-child {
+  border-right: 1px solid #ccc;
+}
+
+.undertabs > .header > li:hover {
+  background-color: #aaa;
+  color: #fff;
+}
+
+
+.undertabs > .header > li.active {
+  background-color: #666;
+  color: #fff;
+  border: 1px solid #fff;
+  cursor: default;
+}
+
+.undertabs > .content > .undertab {
+  display: none;
+  width: 100%;
+  padding: 10px 10px 10px 10px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.undertabs > .content {
+  text-align: center;
+}
+
+.undertabs > .content > .undertab.visible {
+  display: block;
+}
+
+.row > .undercol {
+  flex: 1;
+}
+
+/***** SVG *****/
+svg {
+  background-color: white;
+}
+
+rect {
+  fill-opacity: 1;
+}
+
+rect:hover {
+  stroke: black;
+  stroke-width: 2;
+}
+
+.axis {
+  shape-rendering: crispEdges;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: black;
+  shape-rendering: crispEdges;
+}
+
+.y.axis path {
+  fill: none;
+  stroke: black;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  font-size: 10pt;
+}
+
+#line-chart-svg {
+  height: 900px;
+  width: 900px;
+}
+
+/***** Tooltip *****/
+.d3-tip {
+  line-height: 1;
+  padding: 12px;
+  border-radius: 2px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.d3-tip:after {
+  display: inline;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin: -1px 0 0 0;
+  box-sizing: border-box;
+  font-size: 10px;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+#selectButton {
+  width: 30%;
+}
+
+/***** toggle button *****/
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/***** Decomposed Chart *****/
+#decomposed-svg {
+        height: 400px;
+        width: 980px;
+       }
+       #decomposed-svg2 {
+        height: 400px;
+        width: 980px;
+       }
+       #decomposed-svg3 {
+        height: 400px;
+        width: 980px;
+       }
+
+#semester-svg {
+        height: 600px;
+        width: 200px;
+}
+
+#de-div{
+        display: inline;
+}
+
+#spacer {
+        width: 200px;
+        height: 600px;
+        display: inline-block;
+}
