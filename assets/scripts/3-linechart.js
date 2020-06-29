@@ -42,7 +42,7 @@ function domainX(diplomeData, svg, width, height) {
                 .attr("x", 0 - (height / 2))
                 .attr("dy", "1em")
                 .style("text-anchor", "middle")
-                .text("Nombre d'étudiants");
+                .text("Number of Graduated Students");
 
 
         return x;
@@ -63,7 +63,7 @@ function domainY(diplomeData, svg, width, height) {
                         "translate(" + (width / 2) + " ," +
                         (height + 10 + 20) + ")")
                 .style("text-anchor", "middle")
-                .text("Année");
+                .text("Year");
 
 
         return y;
@@ -174,9 +174,7 @@ function createLegend(color, sumstat) {
         //create the interactive legend
         var SVG = d3.select("#line-chart-svg");
 
-        var res = sumstat.map(function (d) { return d.key }) // list of group names
-
-        var keys = res;
+        var keys = ["Certificate", "Bachelor", "Doctorate","Profession Master", "Research Master"]
 
         var dotCounter = 0;
 

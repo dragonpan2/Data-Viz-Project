@@ -2,10 +2,11 @@
 /**
  * File allowing  creating and updating the bar chart 
  */
+
 function domainXBar(x,inscriptionData){
     var semesters = [];
     inscriptionData.forEach(element => {
-        semesters.push(element.date);
+      semesters.push(element.date);
         });
     x.domain(reformDate(semesters));
 }
@@ -22,7 +23,7 @@ function domainYBar(y,inscriptionData){
 function createAxes(g, xAxis, yAxis, height) {
 
   g.append("g")
-    .attr("class","x axis")
+    .attr("class","x axis bar")
     .attr("transform", "translate(0," + height + ")")
     .call(xAxis)
     .selectAll("text")  
@@ -30,7 +31,7 @@ function createAxes(g, xAxis, yAxis, height) {
     .attr("transform", "rotate(30)");
 
   g.append("g")
-    .attr("class","y axis")
+    .attr("class","y axis bar")
     .call(yAxis);
 
   g.append("text")
@@ -93,7 +94,10 @@ var yMax = d3.max(data, d => {
         }
         return val
       })
+
 var x = d3.scaleLinear().domain([-0.2,data.length]).range([0,width])
+
+
 if (percentButton == true){
     y.domain([0,100]).range([height,0])
     g.selectAll(".y.axis").call(yAxis);
@@ -109,15 +113,13 @@ g.selectAll("rect")
 .selectAll('rect')
   .data(d => d).enter()
 .append('rect')
-  .attr('x', (d,i) => x(i))
-  .attr('width',  (width/data.length))
+  //.attr('x', (d,i) => x(i))
+  .attr('x', function(d,i){
+    return  x(i)
+  })
+  .attr('width', function(d){  return (width/data.length); })
   .attr('height',function(d){
-    if (semesters.includes(d.data.date)){
       return y(d[0])-y(d[1])
-    }
-    else{
-      return 0
-    }
    })
   .attr('y', d => y(d[1]))
   .attr('fill', function(d){

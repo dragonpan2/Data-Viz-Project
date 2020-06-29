@@ -1,66 +1,70 @@
 "use strict";
 
-function manageDecomposedChart(data, isAbsolute, classifyBy, includedSemester) {
+function manageDecomposedChart(data, percent, classifyBy, includedSemester) {
         //feed the right data into the createBarChartDe function
 
         if (classifyBy == 'All') {
-                var formatedData = filterDataDe(data, isAbsolute, classifyBy, 'none', includedSemester);
-                createBarChartDe(formatedData, 0, 1, classifyBy);
+                var formatedData = filterDataDe(data, percent, classifyBy, 'none', includedSemester);
+                createBarChartDe(formatedData, 0, 1, classifyBy, percent);
         }
         else if (classifyBy == 'Cycle') {
-                var formatedData = filterDataDe(data, isAbsolute, classifyBy, '1', includedSemester);
-                createBarChartDe(formatedData, 0, 1, '1');
+                var formatedData = filterDataDe(data, percent, classifyBy, '3', includedSemester);
+                createBarChartDe(formatedData, 800, 1, '3',percent);
 
-                var formatedData = filterDataDe(data, isAbsolute, classifyBy, '2', includedSemester);
-                createBarChartDe(formatedData, 400, 2, '2');
+                var formatedData = filterDataDe(data, percent, classifyBy, '2', includedSemester);
+                createBarChartDe(formatedData, 400, 2, '2',percent);
 
-                var formatedData = filterDataDe(data, isAbsolute, classifyBy, '3', includedSemester);
-                createBarChartDe(formatedData, 800, 3, '3');
+                var formatedData = filterDataDe(data, percent, classifyBy, '1', includedSemester);
+                createBarChartDe(formatedData, 0, 3, '1',percent);
+
 
         }
         else if (classifyBy == 'Gender') {
-                var formatedData = filterDataDe(data, isAbsolute, classifyBy, 'M', includedSemester);
-                createBarChartDe(formatedData, 0, 1, 'M');
+                var formatedData = filterDataDe(data, percent, classifyBy, 'F', includedSemester);
+                createBarChartDe(formatedData, 400, 1, 'F',percent);
 
-                var formatedData = filterDataDe(data, isAbsolute, classifyBy, 'F', includedSemester);
-                createBarChartDe(formatedData, 400, 2, 'F');
+                var formatedData = filterDataDe(data, percent, classifyBy, 'M', includedSemester);
+                createBarChartDe(formatedData, 0, 2, 'M',percent);
 
         }
         else if (classifyBy == 'Legal Status') {
-                var formatedData = filterDataDe(data, isAbsolute, classifyBy, 'Canadien', includedSemester);
-                createBarChartDe(formatedData, 0, 1, 'Canadien');
 
-                var formatedData = filterDataDe(data, isAbsolute, classifyBy, 'Resident', includedSemester);
-                createBarChartDe(formatedData, 400, 2, 'Resident');
+                var formatedData = filterDataDe(data, percent, classifyBy, 'Resident', includedSemester);
+                createBarChartDe(formatedData, 400, 1, 'Resident',percent);
 
-                var formatedData = filterDataDe(data, isAbsolute, classifyBy, 'Etranger', includedSemester);
-                createBarChartDe(formatedData, 800, 3, 'Etranger');
+                var formatedData = filterDataDe(data, percent, classifyBy, 'Etranger', includedSemester);
+                createBarChartDe(formatedData, 800, 2, 'Etranger',percent);
+
+                var formatedData = filterDataDe(data, percent, classifyBy, 'Canadien', includedSemester);
+                createBarChartDe(formatedData, 0, 3, 'Canadien',percent);
 
         }
         else if (classifyBy == 'Study Regime') {
+                
+                var formatedData = filterDataDe(data, percent, classifyBy, 'PL', includedSemester);
+                createBarChartDe(formatedData, 400, 1, 'PL',percent);
 
-                var formatedData = filterDataDe(data, isAbsolute, classifyBy, 'PA', includedSemester);
-                createBarChartDe(formatedData, 0, 1, 'PA');
+                var formatedData = filterDataDe(data, percent, classifyBy, 'PA', includedSemester);
+                createBarChartDe(formatedData, 0, 2, 'PA',percent);
 
-                var formatedData = filterDataDe(data, isAbsolute, classifyBy, 'PL', includedSemester);
-                createBarChartDe(formatedData, 400, 2, 'PL');
 
         }
 
 }
 
 
-function filterDataDe(data, isAbsolute, classifyBy, classifyValue, includedSemester) {
+function filterDataDe(data, percent, classifyBy, classifyValue, includedSemester) {
         //filtered out the data and keep the necessary date in the good format
         data = orderResult(data);
         var formatedData = [];
+
+        if(percent == false){
 
         // filter date
         data.forEach(element => {
                 if (includedSemester.includes(element.date)) {
 
                         var value = 0;
-
                         //ClassifyBy
                         if (classifyBy == 'All') {
                                 value = element.students.length;
@@ -101,12 +105,75 @@ function filterDataDe(data, isAbsolute, classifyBy, classifyValue, includedSemes
                         formatedData.push(newElement);
                 }
         })
+        }
+        else{
+                 // filter date
+        data.forEach(element => {
+                if (includedSemester.includes(element.date)) {
+
+                        var value = 0;
+                        var total = 0;
+                        var temp = 0;
+
+                        //ClassifyBy
+                        if (classifyBy == 'All') {
+                                value = 100;
+                        }
+                        else if (classifyBy == 'Cycle') {
+                                element.students.forEach(subElement => {
+                                        if (subElement.Cycle == classifyValue) {
+                                                temp++;
+                                        }
+                                        else {
+                                                total++;
+                                        }
+                                });
+                        }
+                        else if (classifyBy == 'Gender') {
+                                element.students.forEach(subElement => {
+                                        if (subElement.Sexe == classifyValue) {
+                                                temp++;
+                                        }
+                                        else {
+                                                total++;
+                                        }
+                                });
+
+                        }
+                        else if (classifyBy == 'Legal Status') {
+                                element.students.forEach(subElement => {
+                                        if (subElement.Statut_legal == classifyValue) {
+                                                temp++;
+                                        }
+                                        else {
+                                                total++;
+                                        }
+                                });
+
+                        }
+                        else if (classifyBy == 'Study Regime') {
+                                element.students.forEach(subElement => {
+                                        if (subElement.Regime_Etude == classifyValue) {
+                                                temp++;
+                                        }
+                                        else {
+                                                total++;
+                                        }
+                                });
+
+                        }
+                        value = (temp)*100/(temp+total)
+                        var newElement = { date: element.date, students: value};
+                        formatedData.push(newElement);
+                }
+        })
+        }
 
         return formatedData;
 }
 
 
-function createBarChartDe(data, offset, slot, classifyBy) {
+function createBarChartDe(data, offset, slot, classifyBy, percent) {
         //create and finalized the decomposed chart
         var margin = { top: 30, right: 30, bottom: 70, left: 60 },
                 width = 900 - margin.left - margin.right,
@@ -135,19 +202,32 @@ function createBarChartDe(data, offset, slot, classifyBy) {
                 .attr("transform",
                         "translate(" + margin.left + "," + margin.top + ")");
 
-
         if (classifyBy == 'All') {
                 classifyBy = '';
         }
         else if (classifyBy == '1' || classifyBy == '2' || classifyBy == '3') {
-                classifyBy = classifyBy + ' Cycle'
+                classifyBy = 'Cycle ' +classifyBy 
         }
         else if (classifyBy == 'M') {
-                classifyBy = 'Men';
+                classifyBy = 'Male';
         }
         else if (classifyBy == 'F') {
-                classifyBy = 'Women';
+                classifyBy = 'Female';
         }
+        else if (classifyBy == 'Etranger'){
+                classifyBy = 'Foreign';  
+        }
+        else if (classifyBy == 'Canadien'){
+                classifyBy = 'Canadian';  
+        }
+        else if (classifyBy == 'PA'){
+                classifyBy = 'Part-time';  
+        }
+        else if (classifyBy == 'PL'){
+                classifyBy = 'Full-time';  
+        }
+
+        
         svg.append('text').text(classifyBy).attr("transform",
                 "translate(" + (width / 2) + "," + 0 + ")");;
 
@@ -164,9 +244,16 @@ function createBarChartDe(data, offset, slot, classifyBy) {
                 .style("text-anchor", "end");
 
         // Add Y axis
+        if(percent){
+        var y = d3.scaleLinear()
+                .domain([0, 100])
+                .range([height, 0]);
+        }
+        else{
         var y = d3.scaleLinear()
                 .domain([0, 9000])
                 .range([height, 0]);
+        }
         svg.append("g")
                 .call(d3.axisLeft(y));
 
@@ -179,16 +266,22 @@ function createBarChartDe(data, offset, slot, classifyBy) {
                 .attr("y", function (d) { return y(d.students); })
                 .attr("width", x.bandwidth())
                 .attr("height", function (d) { return height - y(d.students); })
-                .attr("fill", "#69b3a2")
+                .attr("fill", function(){
+                        if (classifyBy =='Cycle 1'  ||   classifyBy =='Canadian'   || classifyBy =='Male' ||   classifyBy =='Part-time' )   return "#ff4c00";
+                        if (classifyBy =='Cycle 2'  ||   classifyBy == 'Female'    ||  classifyBy == 'Foreign' || classifyBy == 'Full-time') return "#008080";
+                        if (classifyBy =='Cycle 3'  ||   classifyBy == 'Resident')   return "#800080";
+                        else return "Orange";     
+                })
+                .attr("opacity", .5)
 
 
 }
 
-function updateDecomposedChart(data, isAbsolute, classifyBy, includedSemester) {
+function updateDecomposedChart(data, percent, classifyBy, includedSemester) {
         //update decomposed chart with the new data
         d3.select("#decomposed-svg").selectAll('svg').remove();
         d3.select("#decomposed-svg2").selectAll('svg').remove();
         d3.select("#decomposed-svg3").selectAll('svg').remove();
         var optionsTitle = ["All", "Cycle", "Gender", "Legal Status", "Study Regime"]
-        manageDecomposedChart(data, isAbsolute, optionsTitle[classifyBy], includedSemester);
+        manageDecomposedChart(data, percent, optionsTitle[classifyBy], includedSemester);
 }

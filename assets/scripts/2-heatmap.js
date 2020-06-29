@@ -222,7 +222,7 @@ function createHeatmapAxes(data, g, scales, width, height) {
     .attr("text-anchor", "middle")
     .attr("x", width/2)
     .attr("y", height + 35)
-    .text("Moyenne cumulative")
+    .text("Cumulative Average")
     .style("font","13px sans-serif");
 
     //y-axis
@@ -236,14 +236,14 @@ function createHeatmapAxes(data, g, scales, width, height) {
     .attr("text-anchor", "end")
     .attr("x", -width*0.02)
     .attr("y", -height*0.02-15)
-    .text("Trimestres")
+    .text("Completed")
     .style("font","13px sans-serif");
     g.append("text")
     .attr("class","y axis")
     .attr("text-anchor", "end")
     .attr("x", -width*0.02)
     .attr("y", -height*0.02)
-    .text("complétés")
+    .text("Semesters")
     .style("font","13px sans-serif");
 
     // top and right frame
@@ -262,7 +262,14 @@ function createHeatmapAxes(data, g, scales, width, height) {
     .attr("text-anchor", "middle")
     .attr("x", width/2)
     .attr("y", -40)
-    .text(data.grade)
+    //.text(data.grade)
+    .text(function(){
+        if (data.grade == 'Bac') return 'Bachelor'
+        if (data.grade == 'Certificat') return 'Certificate'
+        if (data.grade == 'Maitrise recherche') return 'Research Master'
+        if (data.grade == 'Maitrise professionn') return 'Profession Master'
+        if (data.grade == 'Doctorat') return 'Doctorate'
+    })
     .style("font","18px Arial");
 
 }
@@ -309,10 +316,7 @@ function getHeatmapTipText(d, formatNumber, formatPercent) {
   
     var text =  "Nombre d'étudiants: <strong>" + formatNumber(d.students.all) + "</strong><br>" +
                 "Pourcentage d'étudiants: <strong>" + formatPercent(d.percentage.all) + "</strong><br>" +
-                "Trimestres complétés: <strong>" + formatNumber(d.trimesters) + "</strong><br>" +
+                "Completed Semesters: <strong>" + formatNumber(d.trimesters) + "</strong><br>" +
                 "Moyenne cumulative: <strong>" + formatNumber(d.gpaRange-0.09) + " - " + formatNumber(d.gpaRange) + "</strong><br>";
     return text;
-  
-    // var total = d3.sum(currentData.destinations, d => d.count);
-    // return d.count + " (" + formatPercent(d.count/total) + ")";
 }

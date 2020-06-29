@@ -228,7 +228,6 @@
   var barChartHeight = 550 - barChartMargin.top - barChartMargin.bottom;
 
   /***** Scale *****/
-  var color = d3.scaleOrdinal(d3.schemeCategory10);
   var x = d3.scaleBand().range([0, barChartWidth]).round(0.05);
   var y = d3.scaleLinear().range([barChartHeight, 0]);
   var xAxis = d3.axisBottom(x);
@@ -278,7 +277,7 @@
       .on("change", function () {
         selected = d3.select(this).property("value");
        updateStackedBar(barChartGroup, inscriptionData, x, y,tip, barChartHeight, barChartWidth,selected,percentButton,yAxis, guidGroup,CurrentSemesters)
-       updateDecomposedChart(inscriptionData, false, selected, semesters);
+       updateDecomposedChart(inscriptionData, percentButton, selected, semesters);
       })
       .selectAll("option")
       .data(optionsTitle)
@@ -293,7 +292,7 @@
       
 
       /***** Decomposed Bar Chart *****/
-      manageDecomposedChart(inscriptionData, true, 'All', semesters);
+      manageDecomposedChart(inscriptionData, percentButton, 'All', semesters);
       document.getElementById('de-div').style.display = 'none';
       /***** End of Decomposed Bar Chart Section *****/
 
@@ -305,9 +304,11 @@
           percentButton = true;
           if(selected !=0) // All 
           updateStackedBar(barChartGroup, inscriptionData, x, y,tip, barChartHeight, barChartWidth,selected,percentButton,yAxis, guidGroup,CurrentSemesters)
+          updateDecomposedChart(inscriptionData, percentButton, selected, semesters);
         } else { // Number is selected
           percentButton = false;
           updateStackedBar(barChartGroup, inscriptionData, x, y,tip, barChartHeight, barChartWidth,selected,percentButton,yAxis, guidGroup,CurrentSemesters)
+          updateDecomposedChart(inscriptionData, percentButton, selected, semesters);
         }
       }
     });
@@ -357,19 +358,56 @@
      * Only the data exist in CurrentSemesters will be displayed
      */
     function update(element,d, g, inscriptionData, x, y, tip, height, width,yAxis, guidGroup){
+
+
       if (element.style("fill") == "white"){ // select a semester
+        console.log('1');
         element.style("fill","#32CD32");
         CurrentSemesters.push(d);
+
         g.selectAll("rect").remove();
-        createBarChart(g, inscriptionData, x, y, tip, height, width, selected, percentButton,yAxis, guidGroup, CurrentSemesters)
-        updateDecomposedChart(inscriptionData, false, selected, CurrentSemesters);
+
+        var barChartIncludedData = [];
+        inscriptionData.forEach(element => {
+                if (CurrentSemesters.includes(element.date)) {
+                        barChartIncludedData.push(element);
+                }});
+                document.getElementsByClassName('x axis bar')[0].remove();
+                document.getElementsByClassName('y axis bar')[0].remove();
+
+                console.log(document.getElementsByClassName('x axis'));
+
+                domainXBar(x,barChartIncludedData);
+                createAxes(barChartGroup, xAxis, yAxis, barChartHeight);
+
+                console.log('0');
+        
+        createBarChart(g, barChartIncludedData, x, y, tip, height, width, selected, percentButton,yAxis, guidGroup, CurrentSemesters)
+        updateDecomposedChart(inscriptionData, percentButton, selected, CurrentSemesters);
 
       } else { // deselect a semester
+        console.log('2');
         element.style("fill","white");
         for( var i = 0; i < CurrentSemesters.length; i++){ if ( CurrentSemesters[i] === d) { CurrentSemesters.splice(i, 1); }}
         g.selectAll("rect").remove();
-        createBarChart(g, inscriptionData, x, y, tip, height, width, selected, percentButton,yAxis, guidGroup, CurrentSemesters)
-        updateDecomposedChart(inscriptionData, false, selected, CurrentSemesters);
+
+        var barChartIncludedData = [];
+        inscriptionData.forEach(element => {
+                if (CurrentSemesters.includes(element.date)) {
+                        barChartIncludedData.push(element);
+                }});
+                document.getElementsByClassName('x axis bar')[0].remove();
+                document.getElementsByClassName('y axis bar')[0].remove();
+
+                console.log(document.getElementsByClassName('x axis'));
+
+                domainXBar(x,barChartIncludedData);
+                createAxes(barChartGroup, xAxis, yAxis, barChartHeight);
+
+                console.log('0');
+
+        createBarChart(g, barChartIncludedData, x, y, tip, height, width, selected, percentButton,yAxis, guidGroup, CurrentSemesters)
+        updateDecomposedChart(inscriptionData, percentButton, selected, CurrentSemesters);
       }
     }
 
